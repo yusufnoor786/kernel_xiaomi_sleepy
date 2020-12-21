@@ -180,9 +180,10 @@ build_clang
 BUILD_END=$(date +"%s")
 DIFF=$(($BUILD_END - $BUILD_START))
 
-# Generate MD5SUM
-hash=$(md5sum "$pwd"/AnyKernel3/Sleepy-r${RELEASE}-${BUILD_TIME}.zip)
-s/
+# Generate MD5SUM (this is so janky LOL)
+cd AnyKernel3
+hash=$(md5sum *.zip)
+cd ..
 
 # Post the releasing in $CHATID
 TelegramSuccess() {
