@@ -180,11 +180,6 @@ build_clang
 BUILD_END=$(date +"%s")
 DIFF=$(($BUILD_END - $BUILD_START))
 
-# Generate MD5SUM (this is so janky LOL)
-cd AnyKernel3
-hash=$(md5sum *.zip)
-cd ..
-
 # Post the releasing in $CHATID
 TelegramSuccess() {
     curl -F document=@"$(pwd)/AnyKernel3/Sleepy-r${RELEASE}-${BUILD_TIME}.zip" "https://api.telegram.org/bot$BOTTOKEN/sendDocument" \
@@ -212,6 +207,7 @@ zip_kernelimage() {
     BUILD_TIME=$(date +"%d%m%Y-%H%M")
     cd AnyKernel3 || exit
     zip -r9 Sleepy-r"${RELEASE}"-"${BUILD_TIME}".zip ./*
+    hash=$(md5sum *.zip)
     cd ..
 }
 
